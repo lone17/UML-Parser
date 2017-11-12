@@ -6,9 +6,9 @@ import java.util.Scanner;
  * Represent a directory
  */
 public class Directory {
-    private File self; // the directory itself
-    private final LinkedList<Directory> subDirectories; // all subdirectories
-    private final LinkedList<String> sourceFiles; // all source files path
+    protected File self; // the directory itself
+    protected final LinkedList<Directory> subDirectories; // all subdirectories
+    protected final LinkedList<String> allSourceFilePaths; // all source files path
 
     /**
      * Constructor
@@ -21,14 +21,14 @@ public class Directory {
             throw new RuntimeException(": Directory not found");
         subDirectories = new LinkedList<>();
         setSubDirectories();
-        sourceFiles = new LinkedList<String>();
-        setSourceFiles();
+        allSourceFilePaths = new LinkedList<String>();
+        setAllSourceFilePaths();
     }
 
     /**
      * Get all subfolder and file
      */
-    private void setSubDirectories() {
+    protected void setSubDirectories() {
         if (self.isFile()) return;
 
         for (File file : self.listFiles()) {
@@ -39,15 +39,15 @@ public class Directory {
     /**
      * Get all source files
      */
-    private void setSourceFiles() {
+    protected void setAllSourceFilePaths() {
         if (self.isFile()) {
             if (self.getName().endsWith(".java"))
-                sourceFiles.add(self.getAbsolutePath());
+                allSourceFilePaths.add(self.getAbsolutePath());
             return;
         }
 
         for (Directory dir : subDirectories)
-            sourceFiles.addAll(dir.sourceFiles);
+            allSourceFilePaths.addAll(dir.allSourceFilePaths);
     }
 
     /**
@@ -64,8 +64,8 @@ public class Directory {
      *
      * @return a Linked List contains all source files path
      */
-    public LinkedList<String> getSourceFiles() {
-        return sourceFiles;
+    public LinkedList<String> getAllSourceFilePaths() {
+        return allSourceFilePaths;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Directory {
     /**
      * Helper method for content printing
      */
-    private void printContent(int level) {
+    protected void printContent(int level) {
         for (int i = 0; i < level; ++i)
         System.out.print("  ");
 
@@ -106,7 +106,7 @@ public class Directory {
         else
             dir = new Directory("E:\\Code\\OOP\\UML-Visualizer\\Attribute.java");
 
-        for (String s : dir.getSourceFiles())
+        for (String s : dir.getAllSourceFilePaths())
             System.out.println(s);
     }
 }
