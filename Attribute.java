@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Attribute extends UMLComponent {
+public class Attribute extends Component {
 
     public static LinkedList<Attribute> generateInstances(String declaration) {
         String[] instances = Parser.getAttributeDeclaration(declaration);
@@ -8,7 +8,7 @@ public class Attribute extends UMLComponent {
         LinkedList<Attribute> attributes = new LinkedList<Attribute>();
 
         attributes.add(new Attribute(instances[0]));
-        String properties = instances[0].trim().replaceAll(" [^ ]+$", "");
+        String properties = instances[0].trim().replaceAll(" [^ ]*$", "");
         for (int i = 1, len = instances.length; i < len; ++i)
             attributes.add(new Attribute(properties + " " + instances[i]));
 
@@ -61,7 +61,7 @@ public class Attribute extends UMLComponent {
     }
 
     public static void main(String[] args) {
-        List<Attribute> atts = Attribute.generateInstances("protected boolean isStatic = false, isAbstract, isFinal = false");
+        List<Attribute> atts = Attribute.generateInstances("protected boolean isStatic = , isAbstract, isFinal = false");
         for (Attribute a : atts)
             System.out.println(a);
     }

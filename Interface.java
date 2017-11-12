@@ -1,14 +1,14 @@
 import java.util.*;
 
-public class Interface extends UMLComponent {
-    private String[] parentsName;
+public class Interface extends Component {
+    private String[] baseInterfaces;
     private LinkedList<Method> methods;
     private LinkedList<Attribute> attributes;
 
-    public Interface(String declaration) {
-        String[] prototype = Parser.getInterfaceDeclaration(declaration);
+    public Interface(String input) {
+        String[] declaration = Parser.getInterfaceDeclaration(input);
 
-        String[] parts = prototype[0].split("\\s+");
+        String[] parts = declaration[0].split("\\s+");
         int len = parts.length;
 
         name = parts[len - 1];
@@ -22,13 +22,15 @@ public class Interface extends UMLComponent {
         }
         isAbstract = true;
 
-        parentsName = prototype[1].split("\\s+");
+        if (declaration[1] != null)
+            baseInterfaces = declaration[1].split("\\s+");
 
         methods = new LinkedList<Method>();
+        attributes = new LinkedList<Attribute>();
     }
 
-    public String[] getParentsName() {
-        return parentsName;
+    public String[] getBaseInterfaces() {
+        return baseInterfaces;
     }
 
     public void addMethod(Method method) {
@@ -63,14 +65,24 @@ public class Interface extends UMLComponent {
         String s = "";
         if (accessModifier != null) s += accessModifier + " ";
 
-        return s  + type + " " + name;
+        s += type + " " + name + "\n";
+
+        for (String item : baseInterfaces)
+            s += name + " ---> " + item + "\n";
+
+
+        for (Attribute item : attributes)
+            s += item.toString() + "\n";
+
+        for (Method item : methods)
+            s += item.toString() + "\n";
+
+        return s;
 	}
 
     public static void main(String[] args) {
-        String s = "public interface Interface extends UMLComponent implements a1, a2 {";
+        String s = "public interface Interface extends UMLComponent, a1, a2";
         Interface test = new Interface(s);
         System.out.println(test);
-        for (String p : test.getParentsName())
-            System.out.println(p);
     }
 }

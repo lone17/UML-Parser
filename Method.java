@@ -1,10 +1,10 @@
-public class Method extends UMLComponent {
+public class Method extends Component {
     private String parametersType;
 
-    public Method(String declaration) {
-        String[] prototype = Parser.getMethodDeclaration(declaration);
+    public Method(String input) {
+        String[] declaration = Parser.getMethodDeclaration(input);
 
-        String[] parts = prototype[0].split("\\s+");
+        String[] parts = declaration[0].split("\\s+");
         int len = parts.length;
 
         name = parts[len - 1];
@@ -22,13 +22,13 @@ public class Method extends UMLComponent {
                 accessModifier = cur;
         }
 
-        parts = prototype[1].split(" ");
+        parts = declaration[1].trim().split("\\s+");
         len = parts.length;
         parametersType = parts[0];
         for (int i = 2; i < len; i += 2)
             parametersType += ", " + parts[i];
     }
-    
+
     /**
     * @return true if this component is a method
     *         false otherwise
@@ -56,7 +56,7 @@ public class Method extends UMLComponent {
 
     public static void main(String[] args) {
 
-        String s = "public static void main(String[] args) throws Exception {};";
+        String s = "public String getName()";
         Method test = new Method(s);
         System.out.println(test);
     }

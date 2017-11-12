@@ -1,14 +1,15 @@
 import java.util.*;
 
-public class Class extends UMLComponent {
-    private String[] parentsName;
+public class Class extends Component {
+    private String baseClass;
+    private String[] baseInterfaces;
     private LinkedList<Method> methods;
     private LinkedList<Attribute> attributes;
 
-    public Class(String declaration) {
-        String[] prototype = Parser.getClassDeclaration(declaration);
+    public Class(String input) {
+        String[] declaration = Parser.getClassDeclaration(input);
 
-        String[] parts = prototype[0].split("\\s+");
+        String[] parts = declaration[0].split("\\s+");
         int len = parts.length;
 
         name = parts[len - 1];
@@ -27,13 +28,20 @@ public class Class extends UMLComponent {
                 type = cur;
         }
 
-        parentsName = prototype[1].split("\\s+");
+        baseClass = declaration[1];
+        if (declaration[2] != null)
+            baseInterfaces = declaration[2].split("\\s+");
 
         methods = new LinkedList<Method>();
+        attributes = new LinkedList<Attribute>();
     }
 
-    public String[] getParentsName() {
-        return parentsName;
+    public String getBaseClass() {
+        return baseClass;
+    }
+
+    public String[] getBaseInterfaces() {
+        return baseInterfaces;
     }
 
     public void addMethod(Method method) {
@@ -71,14 +79,28 @@ public class Class extends UMLComponent {
         if (isStatic)   s += "static ";
         if (isFinal)    s += "final ";
 
-        return s  + type + " " + name;
+        s += type + " " + name + "\n";
+
+        if (baseClass != null) s += name + " ---> " + baseClass + "\n";
+
+        if (baseInterfaces != null)
+            for (String item : baseInterfaces)
+                s += name + " ---> " + item + "\n";
+
+        s += "\n" + "Attributes: " + "\n";
+        for (Attribute item : attributes)
+            s += item.toString() + "\n";
+
+        s += "\n" + "Method: " + "\n";
+        for (Method item : methods)
+            s += item.toString() + "\n";
+
+        return s;
 	}
 
     public static void main(String[] args) {
         String s = "public class Class extends UMLComponent implements a1, a2 {";
         Class test = new Class(s);
         System.out.println(test);
-        for (String p : test.getParentsName())
-            System.out.println(p);
     }
 }

@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Directory {
     private File self; // the directory itself
     private final LinkedList<Directory> subDirectories; // all subdirectories
+    private final LinkedList<String> sourceFiles; // all source files path
 
     /**
      * Constructor
@@ -20,10 +21,12 @@ public class Directory {
             throw new RuntimeException(": Directory not found");
         subDirectories = new LinkedList<>();
         setSubDirectories();
+        sourceFiles = new LinkedList<String>();
+        setSourceFiles();
     }
 
     /**
-     * Add subfolder and file to this Directory's attribute
+     * Get all subfolder and file
      */
     private void setSubDirectories() {
         if (self.isFile()) return;
@@ -34,12 +37,35 @@ public class Directory {
     }
 
     /**
-     * Return a Linked List contains all subdirectories and files
+     * Get all source files
+     */
+    private void setSourceFiles() {
+        if (self.isFile()) {
+            if (self.getName().endsWith(".java"))
+                sourceFiles.add(self.getAbsolutePath());
+            return;
+        }
+
+        for (Directory dir : subDirectories)
+            sourceFiles.addAll(dir.sourceFiles);
+    }
+
+    /**
+     * Return all subdirectories and files
      *
-     * @return all all children of this directory
+     * @return a Linked List contains children of this directory
      */
     public LinkedList<Directory> getSubDirectories() {
         return subDirectories;
+    }
+
+    /**
+     * Return all source files path
+     *
+     * @return a Linked List contains all source files path
+     */
+    public LinkedList<String> getSourceFiles() {
+        return sourceFiles;
     }
 
     /**
@@ -78,8 +104,9 @@ public class Directory {
         if (args.length != 0 )
             dir = new Directory(args[0]);
         else
-            dir = new Directory(sc.nextLine());
+            dir = new Directory("E:\\Code\\OOP\\UML-Visualizer\\Attribute.java");
 
-        dir.printContent();
+        for (String s : dir.getSourceFiles())
+            System.out.println(s);
     }
 }

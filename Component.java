@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class UMLComponent {
+public abstract class Component {
     protected final List<String> modifiers = Arrays.asList("public", "protected", "private");
 
     protected String name, type, accessModifier;
