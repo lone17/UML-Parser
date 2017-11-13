@@ -1,9 +1,19 @@
 import java.util.*;
 
+/**
+ * class Component represents a component
+ *
+ * @author Vu Minh Hieu
+ */
 public abstract class Component {
+
+	// list of access modifiers
     protected final List<String> modifiers = Arrays.asList("public", "protected", "private");
 
+	// name, type and access modifier of a component
     protected String name, type, accessModifier;
+
+	// determine if a component is static or/and abstract or/and final
     protected boolean isStatic = false, isAbstract = false, isFinal = false;
 
 

@@ -1,6 +1,17 @@
+/**
+ * class Component represents a component
+ *
+ * @author Vu Minh Hieu
+ */
 public class Method extends Component {
-    private String parametersType;
 
+    private String parametersType; // all parameters' type
+
+    /**
+     * Method Constructor
+     *
+     * @param input a String contains a method declaration
+     */
     public Method(String input) {
         String[] declaration = Parser.getMethodDeclaration(input);
 
@@ -54,6 +65,9 @@ public class Method extends Component {
         return s  + name + "(" + parametersType + ")";
     }
 
+    /**
+     * Local testing
+     */
     public static void main(String[] args) {
 
         String s = "public String getName()";

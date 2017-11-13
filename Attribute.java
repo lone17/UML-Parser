@@ -1,9 +1,20 @@
 import java.util.*;
 
+/**
+ * class Attribute represents a class's attribute
+ *
+ * @author Vu Minh Hieu
+ */
 public class Attribute extends Component {
 
-    public static LinkedList<Attribute> generateInstances(String declaration) {
-        String[] instances = Parser.getAttributeDeclaration(declaration);
+    /**
+     * Generate a list of instances from a attribute input
+     *
+     * @param input a String contains attribute inputs
+     * @return a list of attributes declared in the param
+     */
+    public static LinkedList<Attribute> generateInstances(String input) {
+        String[] instances = Parser.getAttributeDeclaration(input);
 
         LinkedList<Attribute> attributes = new LinkedList<Attribute>();
 
@@ -15,15 +26,18 @@ public class Attribute extends Component {
         return attributes;
     }
 
-    private Attribute(String declaration) {
-        String[] parts = declaration.trim().split("\\s+");
-        int len = parts.length;
+    /**
+     * Attribute Constructor
+     */
+    private Attribute(String input) {
+        String[] declaration = input.trim().split("\\s+");
+        int len = declaration.length;
 
-        name = parts[len - 1];
-        type = parts[len - 2];
+        name = declaration[len - 1];
+        type = declaration[len - 2];
 
         for (int i = len - 3; i >= 0; --i) {
-            String cur = parts[i];
+            String cur = declaration[i];
             if (cur.equals("static"))
                 isStatic = true;
             else if (cur.equals("abstract"))
@@ -60,6 +74,9 @@ public class Attribute extends Component {
         return s  + name;
     }
 
+    /**
+     * Local testing
+     */
     public static void main(String[] args) {
         List<Attribute> atts = Attribute.generateInstances("protected boolean isStatic = , isAbstract, isFinal = false");
         for (Attribute a : atts)

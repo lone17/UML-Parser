@@ -1,5 +1,14 @@
+/**
+ * class Parser represents a text parser
+ */
 public class Parser {
 
+    /**
+     * preprocess the text
+     *
+     * @param input the text to be processed
+     * @return the processed text
+     */
     public static String preprocess(String input) {
         // input = removeQuote(input);
         input = removeComment(input);
@@ -18,6 +27,12 @@ public class Parser {
         return input;
     }
 
+    /**
+     * Remove all comments in the text
+     *
+     * @param input the text to be processed
+     * @return the processed text
+     */
     public static String removeComment(String input) {
         String test = "/* asda /* /* */ protected boolean isStatic = false, /* a /* b /* c */  isAbstract = false, /* a */ isFinal /* a */ = false; //asd /* */ /*";
 
@@ -25,6 +40,24 @@ public class Parser {
         return input;
     }
 
+    /**
+    * Remove all qouted string in the text
+    *
+    * @param input the text to be processed
+    * @return the processed text
+    */
+    public static String removeQuote(String input) {
+        input = input.replace("\\\"", "");
+        input = input.replaceAll("([\"'])[^\1]*?\\1", "");
+        return input;
+    }
+
+    /**
+     * Extracts a method declaration from a text
+     *
+     * @param input the text to be processed
+     * @return an array of String contains parts of a method declaration
+     */
     public static String[] getMethodDeclaration(String input) {
         String[] res = input.split("throws")[0].split("\\(");
         res[0] = res[0].trim();
@@ -36,12 +69,12 @@ public class Parser {
         return res;
     }
 
-    public static String removeQuote(String input) {
-        input = input.replace("\\\"", "");
-        input = input.replaceAll("([\"'])[^\1]*?\\1", "");
-        return input;
-    }
-
+    /**
+    * Extracts a class declaration from a text
+    *
+    * @param input the text to be processed
+    * @return an array of String contains parts of a class declaration
+    */
     public static String[] getClassDeclaration(String input) {
         String[] res = new String[3];
         String[] tmp = input.split("\\{")[0].replaceAll("(\\bextends\\b)|(\\bimplements\\b)", "-").split("-");
@@ -62,6 +95,12 @@ public class Parser {
         return res;
     }
 
+    /**
+    * Extracts a interface declaration from a text
+    *
+    * @param input the text to be processed
+    * @return an array of String contains parts of a interface declaration
+    */
     public static String[] getInterfaceDeclaration(String input) {
         String[] res = new String[2];
         String[] tmp = removeComment(input).split("extends");
@@ -72,6 +111,12 @@ public class Parser {
         return res;
     }
 
+    /**
+    * Extracts a attribute declaration from a text
+    *
+    * @param input the text to be processed
+    * @return an array of String contains parts of a attribute declaration
+    */
     public static String[] getAttributeDeclaration(String input) {
         input = input.split("\\(")[0];
         String[] res = input.trim().replaceAll("=\\s*[^ ]*\\s*(,|$)", ",").split("\\s*,\\s*");
@@ -79,6 +124,9 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Local testing
+     */
     public static void main(String[] args) {
         String test = "/* asda /* /* */ protected boolean isStatic = false, /* a /* b /* c */  isAbstract = \"nkn\", /* ** a */ isFinal /* a */ = false; //asd /* */";
         test = removeQuote(test);

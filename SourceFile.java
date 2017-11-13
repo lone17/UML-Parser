@@ -1,15 +1,28 @@
 import java.io.*;
 
+/**
+ * class SourceFile represents a source file
+ *
+ * @author Vu Minh Hieu
+ */
 public class SourceFile {
-    private Class containedClass;
+
+    private Class containedClass; // the class contianed in the source file
+
+    // name, address and the simplified content of the file
     private String name, path, text = "";
 
+    /**
+     * SourceFile Constructor
+     *
+     * @param filePath the path to a source file
+     */
     public SourceFile(String filePath) {
         File self;
         try {
-            path = filePath;
             self = new File(filePath);
             name = self.getName();
+            path = self.getAbsolutePath();
             String line;
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             while ((line = br.readLine()) != null) {
@@ -39,20 +52,38 @@ public class SourceFile {
         }
     }
 
+    /**
+     * Return the name of the source file
+     *
+     * @return the name of the source file
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * return the address of the source file
+     *
+     * @return the absolute path of the source file
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * return the contained class
+     *
+     * @return a Class represents the contained class
+     */
     public Class getContainedClass() {
         return containedClass;
     }
 
+    /**
+     * Local testing
+     */
     public static void main(String[] args) {
-        SourceFile test = new SourceFile("E:\\Code\\OOP\\UML-Visualizer\\SourceFile.java");
+        SourceFile test = new SourceFile("E:\\Code\\OOP\\UML-Visualizer\\Attribute.java");
         System.out.println(test.containedClass);
         // System.out.println(test.text);
     }

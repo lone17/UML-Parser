@@ -3,9 +3,12 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
- * Represent a directory
+ * class Directory represent a directory
+ *
+ * @author Vu Minh Hieu
  */
 public class Directory {
+
     protected File self; // the directory itself
     protected final LinkedList<Directory> subDirectories; // all subdirectories
     protected final LinkedList<String> allSourceFilePaths; // all source files path
@@ -77,6 +80,8 @@ public class Directory {
 
     /**
      * Helper method for content printing
+     *
+     * @param level depth-wise level of the directory
      */
     protected void printContent(int level) {
         for (int i = 0; i < level; ++i)
