@@ -12,17 +12,17 @@ public class Parser {
     public static String preprocess(String input) {
         // input = removeQuote(input);
         input = removeComment(input);
-        input = input.replaceAll("(import|package)[^;]+;", "");
-        input = input.replaceAll("@[\\S]*\\b", "");
+        input = input.replaceAll("@.*\n", " ");
 
         int begin = input.indexOf("{");
         int end = input.lastIndexOf("}");
         input = input.substring(0, begin) + ";" + input.substring(begin+1, end);
 
         while (input.contains("{"))
-            input = input.replaceAll("\\{[^{^}]*\\}", ";");
+            input = input.replaceAll("\\{[^{^}]*\\};*", ";");
 
         input = input.replace("\n", " ");
+        input = input.replaceAll("(import|package)[^;]+;", "");
 
         return input;
     }
@@ -119,7 +119,7 @@ public class Parser {
     */
     public static String[] getAttributeDeclaration(String input) {
         input = input.split("\\(")[0];
-        String[] res = input.trim().replaceAll("=\\s*[^ ]*\\s*(,|$)", ",").split("\\s*,\\s*");
+        String[] res = input.trim().replaceAll("=\\s*[^,]*\\s*(,|$)", ",").split("\\s*,\\s*");
 
         return res;
     }
