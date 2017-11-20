@@ -1,5 +1,3 @@
-package Parser;
-
 import java.util.*;
 
 /**
@@ -8,7 +6,7 @@ import java.util.*;
  * @author Vu Minh Hieu
  */
 public class Class extends Component {
-    
+
     private String baseClass; // parent class
     private String[] baseInterfaces; // implemented interfaces
     private LinkedList<Method> methods; // contianed methods

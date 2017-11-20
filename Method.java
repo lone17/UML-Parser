@@ -1,5 +1,3 @@
-package Parser;
-
 /**
  * class Component represents a component
  *

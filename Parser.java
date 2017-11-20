@@ -1,5 +1,3 @@
-package Parser;
-
 /**
  * class Parser represents a text parser
  *

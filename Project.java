@@ -1,5 +1,3 @@
-package Parser;
-
 import java.util.LinkedList;
 import java.io.*;
 
