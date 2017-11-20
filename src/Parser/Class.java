@@ -1,3 +1,5 @@
+package Parser;
+
 import java.util.*;
 
 /**
@@ -97,7 +99,7 @@ public class Class extends Component {
      *
      * @param att the attribute to be added
      */
-    public void addAtribute(Attribute att) {
+    public void addAttribute(Attribute att) {
         attributes.add(att);
     }
 
@@ -115,7 +117,7 @@ public class Class extends Component {
      *
      * @return all contained attributes
      */
-    public LinkedList<Attribute> getAttibutes() {
+    public LinkedList<Attribute> getAttributes() {
         return attributes;
     }
 	/**

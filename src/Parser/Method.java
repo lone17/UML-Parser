@@ -1,3 +1,5 @@
+package Parser;
+
 /**
  * class Component represents a component
  *
@@ -19,9 +21,8 @@ public class Method extends Component {
         int len = parts.length;
 
         name = parts[len - 1];
-        type = parts[len - 2];
 
-        for (int i = len - 3; i >= 0; --i) {
+        for (int i = len - 2; i >= 0; --i) {
             String cur = parts[i];
             if (cur.equals("static"))
                 isStatic = true;
@@ -31,6 +32,8 @@ public class Method extends Component {
                 isFinal = true;
             else if (modifiers.contains(cur))
                 accessModifier = cur;
+            else
+                type = cur;
         }
 
         parts = declaration[1].trim().split("\\s+");

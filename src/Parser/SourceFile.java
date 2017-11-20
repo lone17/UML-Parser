@@ -1,3 +1,5 @@
+package Parser;
+
 import java.io.*;
 
 /**
@@ -83,7 +85,7 @@ public class SourceFile {
      * Local testing
      */
     public static void main(String[] args) {
-        SourceFile test = new SourceFile("E:\\Code\\OOP\\UML-Visualizer\\Attribute.java");
+        SourceFile test = new SourceFile("D:\\Downloads\\K53CC\\r50\\src\\com\\tavanduc\\uml\\gui\\Relationship.java");
         System.out.println(test.containedClass);
         // System.out.println(test.text);
     }

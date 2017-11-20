@@ -1,5 +1,9 @@
+package Parser;
+
 /**
  * class Parser represents a text parser
+ *
+ * @author Vu Minh HIeu
  */
 public class Parser {
 

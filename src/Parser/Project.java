@@ -1,3 +1,5 @@
+package Parser;
+
 import java.util.LinkedList;
 import java.io.*;
 
@@ -40,24 +42,25 @@ public class Project extends Directory {
         if (args.length != 0)
             uml = new Project(args[0]);
         else
-            uml = new Project("E:\\Code\\OOP\\UML-Visualizer");
+            uml = new Project("E:\\Code\\OOP\\Swing-master");
 
-        try {
-            FileWriter writer = new FileWriter("file1.txt", true);
-            BufferedWriter out = new BufferedWriter(writer);
-
-            for (SourceFile file : uml.sourceFiles) {
-                out.append("*************************************************\n");
-                out.append(file.getContainedClass() + "\n");
-            }
-
-            out.close();
-        } catch(IOException e) {
-            System.out.println(e);
-        }
-        // for (SourceFile file : uml.sourceFiles) {
-        //     System.out.println("********************************************");
-        //     System.out.println(file.getContainedClass());
+        // try {
+        //     FileWriter writer = new FileWriter("file1.txt");
+        //     BufferedWriter out = new BufferedWriter(writer);
+        //
+        //     for (SourceFile file : uml.sourceFiles) {
+        //         out.append("*************************************************\n");
+        //         out.append(file.getContainedClass() + "\n");
+        //     }
+        //
+        //     out.close();
+        // } catch(IOException e) {
+        //     System.out.println(e);
         // }
+
+        for (SourceFile file : uml.sourceFiles) {
+            System.out.println("********************************************");
+            System.out.println(file.getContainedClass());
+        }
     }
 }
